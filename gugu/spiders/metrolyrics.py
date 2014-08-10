@@ -15,7 +15,7 @@ class MetroSpider(CrawlSpider):
     Rule(LinkExtractor(allow=('/artists-[a-z1](-\d+)?\.html',))),
     Rule(LinkExtractor(allow=('/[a-z-]+-(lyrics|overview|alpage-\d+)\.html',))),
     Rule(LinkExtractor(allow=('/[a-z-]+-lyrics-[a-z-]+\.html',),
-                       deny=('/news-story-',)), callback='parse_song')
+                       deny=('/news-story-',)), callback='parse_song'),
   ]
 
   def parse_song(self, response):

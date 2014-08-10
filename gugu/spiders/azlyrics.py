@@ -15,7 +15,7 @@ class AzlyricsSpider(CrawlSpider):
     Rule(LinkExtractor(allow=('/([a-z]|19)\.html',))),
     Rule(LinkExtractor(allow=('/([a-z]|19)/[a-z0-9_-]+\.html'))),
     Rule(LinkExtractor(allow=('/lyrics/[a-z0-9_-]+/[a-z0-9_-]+\.html')),
-         callback='parse_song')
+         callback='parse_song'),
   ]
 
   def parse_song(self, response):
