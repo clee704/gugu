@@ -13,10 +13,10 @@ class SonglyricsSpider(CrawlSpider):
   allowed_domains = ['songlyrics.com']
   start_urls = ['http://www.songlyrics.com/']
   rules = [
-    Rule(LinkExtractor(allow=('/[a-z0]/(\d+)?',))),
-    Rule(LinkExtractor(allow=('/[a-z-]+/[a-z-]+-lyrics/',),
-                       deny=('/news/',)), callback='parse_song'),
-    Rule(LinkExtractor(allow=('/[a-z-]+-lyrics/',))),
+    Rule(LinkExtractor(allow=(r'/[a-z0]/(\d+)?',))),
+    Rule(LinkExtractor(allow=(r'/[a-z-]+/[a-z-]+-lyrics/',),
+                       deny=(r'/news/',)), callback='parse_song'),
+    Rule(LinkExtractor(allow=(r'/[a-z-]+-lyrics/',))),
   ]
 
   def parse_song(self, response):

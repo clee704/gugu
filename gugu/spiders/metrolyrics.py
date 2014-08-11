@@ -13,10 +13,10 @@ class MetroSpider(CrawlSpider):
   allowed_domains = ['metrolyrics.com']
   start_urls = ['http://www.metrolyrics.com/artists-1.html']
   rules = [
-    Rule(LinkExtractor(allow=('/artists-[a-z1](-\d+)?\.html',))),
-    Rule(LinkExtractor(allow=('/[a-z-]+-(lyrics|overview|alpage-\d+)\.html',))),
-    Rule(LinkExtractor(allow=('/[a-z-]+-lyrics-[a-z-]+\.html',),
-                       deny=('/news-story-',)), callback='parse_song'),
+    Rule(LinkExtractor(allow=(r'/artists-[a-z1](-\d+)?\.html',))),
+    Rule(LinkExtractor(allow=(r'/[a-z-]+-(lyrics|overview|alpage-\d+)\.html',))),
+    Rule(LinkExtractor(allow=(r'/[a-z-]+-lyrics-[a-z-]+\.html',),
+                       deny=(r'/news-story-',)), callback='parse_song'),
   ]
 
   def parse_song(self, response):

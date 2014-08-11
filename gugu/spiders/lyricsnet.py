@@ -13,9 +13,9 @@ class LyricsnetSpider(CrawlSpider):
   allowed_domains = ['lyrics.net']
   start_urls = ['http://www.lyrics.net/']
   rules = [
-    Rule(LinkExtractor(allow=('/artist/[^/]+(/\d+)?',))),
-    Rule(LinkExtractor(allow=('/album/\d+',))),
-    Rule(LinkExtractor(allow=('/lyric/\d+',)), callback='parse_song'),
+    Rule(LinkExtractor(allow=(r'/artist/[^/]+(/\d+)?',))),
+    Rule(LinkExtractor(allow=(r'/album/\d+',))),
+    Rule(LinkExtractor(allow=(r'/lyric/\d+',)), callback='parse_song'),
   ]
 
   def parse_song(self, response):

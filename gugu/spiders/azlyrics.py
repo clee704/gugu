@@ -13,17 +13,17 @@ class AzlyricsSpider(CrawlSpider):
   allowed_domains = ['azlyrics.com']
   start_urls = ['http://www.azlyrics.com/']
   rules = [
-    Rule(LinkExtractor(allow=('/([a-z]|19)\.html',))),
-    Rule(LinkExtractor(allow=('/([a-z]|19)/[a-z0-9_-]+\.html'))),
-    Rule(LinkExtractor(allow=('/lyrics/[a-z0-9_-]+/[a-z0-9_-]+\.html')),
+    Rule(LinkExtractor(allow=(r'/([a-z]|19)\.html',))),
+    Rule(LinkExtractor(allow=(r'/([a-z]|19)/[a-z0-9_-]+\.html'))),
+    Rule(LinkExtractor(allow=(r'/lyrics/[a-z0-9_-]+/[a-z0-9_-]+\.html')),
          callback='parse_song'),
   ]
 
   def parse_song(self, response):
     song = Song()
     song['url'] = response.url
-    song['title'] = response.xpath('//script').re('SongName = "([^"]+)"')[0]
-    song['artist'] = response.xpath('//script').re('ArtistName = "([^"]+)"')[0]
+    song['title'] = response.xpath('//script').re(r'SongName = "([^"]+)"')[0]
+    song['artist'] = response.xpath('//script').re(r'ArtistName = "([^"]+)"')[0]
     song['lyrics'] = clean_newlines(
       html2text(response.xpath('//div[@style="margin-left:10px;margin-right:10px;"]').extract()[0]))
     yield song
