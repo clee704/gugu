@@ -6,6 +6,7 @@ from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 
 from ..items import Song
+from ..utils import clean_newlines
 
 class AzlyricsSpider(CrawlSpider):
   name = 'azlyrics'
@@ -23,6 +24,6 @@ class AzlyricsSpider(CrawlSpider):
     song['url'] = response.url
     song['title'] = response.xpath('//script').re('SongName = "([^"]+)"')[0]
     song['artist'] = response.xpath('//script').re('ArtistName = "([^"]+)"')[0]
-    song['lyrics'] = re.sub(r' *\n *', '\n',
-      html2text(response.xpath('//div[@style="margin-left:10px;margin-right:10px;"]').extract()[0]).strip())
+    song['lyrics'] = clean_newlines(
+      html2text(response.xpath('//div[@style="margin-left:10px;margin-right:10px;"]').extract()[0]))
     yield song

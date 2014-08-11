@@ -6,6 +6,7 @@ from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.contrib.spiders import CrawlSpider, Rule
 
 from ..items import Song
+from ..utils import clean_newlines
 
 class LyricsnetSpider(CrawlSpider):
   name = 'lyricsnet'
@@ -22,5 +23,5 @@ class LyricsnetSpider(CrawlSpider):
     song['url'] = response.url
     song['title'] = response.css('.lyric-title').xpath('text()').extract()[0]
     song['artist'] = response.css('.lyric-artist a').xpath('text()').extract()[0]
-    song['lyrics'] = re.sub(r' *\n *', '\n', html2text(response.css('.lyric-body').extract()[0]).strip())
+    song['lyrics'] = clean_newlines(html2text(response.css('.lyric-body').extract()[0]))
     yield song
