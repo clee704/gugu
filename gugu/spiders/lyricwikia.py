@@ -11,17 +11,17 @@ from ..items import Song
 from ..utils import clean_newlines
 
 def remove_garbage(value):
-  return re.sub(r'&+', '&', re.sub(r'ns\d+=\d+', '', value))
+  return re.sub(r'\?&?$', '',
+                re.sub(r'&+', '&',
+                       re.sub(r'(ns\d+|diff|action|direction|oldid|filefrom|subcatfrom|pageuntil)=[^&]+', '',
+                              value)))
 
 class LyricwikiaSpider(CrawlSpider):
   name = 'lyricwikia'
   allowed_domains = ['lyrics.wikia.com']
-  start_urls = [
-    'http://lyrics.wikia.com/Special:Search?search=99&fulltext=Search',
-    'http://lyrics.wikia.com/Special:Search?search=pigeon&fulltext=Search',
-  ]
+  start_urls = ['http://lyrics.wikia.com/']
   rules = [
-    Rule(LinkExtractor(allow=(r'/Special:Search',), process_value=remove_garbage)),
+    Rule(LinkExtractor(allow=(r'/Category:Song.*',), process_value=remove_garbage)),
     Rule(LinkExtractor(allow=(r'/.*:.*',),
                        deny=(r'/(Special|User|Category|Gracenote|LyricWiki|Help|Talk|.*_talk|LyricFind):',)),
          callback='parse_song'),
