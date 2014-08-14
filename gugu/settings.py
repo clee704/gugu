@@ -11,5 +11,4 @@ ITEM_PIPELINES = {
   'gugu.pipelines.GuguPipeline': 100,
 }
 
-FEED_URI = 'file:///Users/choongmin/Downloads/gugu/%(name)s-%(time)s.xml'
 FEED_FORMAT = 'xml'
